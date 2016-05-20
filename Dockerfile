@@ -38,9 +38,8 @@ RUN ln -s /usr/share/salt-formulas/reclass/service /srv/salt/reclass/classes/ser
 RUN salt-call --id=${SERVICE}.${ROLE} --local --retcode-passthrough pillar.data
 RUN salt-call --id=${SERVICE}.${ROLE} --local --retcode-passthrough state.sls ${SERVICE}
 
-ADD files/postfix.sh /usr/local/sbin/
 ADD files/entrypoint.sh /
-RUN chmod +x /entrypoint.sh /usr/local/sbin/postfix.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT /entrypoint.sh
 
 ## Cleanup
