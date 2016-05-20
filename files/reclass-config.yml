@@ -1,0 +1,4 @@
+storage_type: yaml_fs
+pretty_print: True
+output: yaml
+inventory_base_uri: /srv/salt/reclass
