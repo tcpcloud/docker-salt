@@ -1,8 +1,16 @@
 FROM tcpcloud/salt-base
 
 ## Overridable parameters
-ENV SERVICE postfix
+ENV SERVICE memcached
 ENV ROLE server
+
+### XXX
+
+RUN git clone https://github.com/tcpcloud/salt-formula-memcached.git -b docker memcached
+RUN rm -rf /usr/share/salt-formulas/env/memcached
+RUN mv memcached/memcached /usr/share/salt-formulas/env/
+
+### XXX
 
 ## Application
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_top
@@ -10,8 +18,6 @@ RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_t
     salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.sls linux || true
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.highstate
 
-ADD files/postfix/entrypoint.sh /
-RUN chmod +x /entrypoint.sh
 ENTRYPOINT /entrypoint.sh
 
 ## Cleanup
