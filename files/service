@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ ! -f /etc/init.d/$1 ]; then
+    echo "/etc/init.d/$1 does not exist, not doing anything.."
+    exit 0
+fi
+
+/etc/init.d/$1 $2
+exit $?
