@@ -4,11 +4,6 @@ FROM tcpcloud/salt-base
 ENV SERVICE rabbitmq
 ENV ROLE server
 
-### XXX
-RUN rm -rf /usr/share/salt-formulas/env/rabbitmq
-RUN git clone https://github.com/tcpcloud/salt-formula-rabbitmq.git -b docker rabbitmq; mv rabbitmq/rabbitmq /usr/share/salt-formulas/env/
-### XXX
-
 ## Pillar
 RUN mkdir /srv/salt/pillar
 RUN echo "base:\n  ${SERVICE}-${ROLE}:\n    - ${SERVICE}-${ROLE}" > /srv/salt/pillar/top.sls
