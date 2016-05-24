@@ -4,14 +4,6 @@ FROM tcpcloud/salt-base
 ENV SERVICE memcached
 ENV ROLE server
 
-### XXX
-
-RUN git clone https://github.com/tcpcloud/salt-formula-memcached.git -b docker memcached
-RUN rm -rf /usr/share/salt-formulas/env/memcached
-RUN mv memcached/memcached /usr/share/salt-formulas/env/
-
-### XXX
-
 ## Application
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_top
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_top | grep -- '- linux' 2>&1 >/dev/null && \
