@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 TAG_PREFIX=tcpcloud
+BUILD_PATH=${1:-"salt-base.dockerfile services"}
 
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
@@ -8,12 +9,6 @@ build_image() {
     docker build --no-cache --rm=true -t $TAG_PREFIX/$name -f $1 .
 }
 
-if [ -n $1 ]; then
-    build_image $1
-else
-    build_image salt-base.dockerfile
-
-    find services -name "*.dockerfile" | while read service; do
-        build_image $service
-    done
-fi
+find $BUILD_PATH -name "*.dockerfile" | while read service; do
+    build_image $service
+done
