@@ -8,7 +8,8 @@ ENV REPO_COMPONENTS "main security extra tcp tcp-salt"
 
 ## Common
 ENV DEBIAN_FRONTEND noninteractive
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/service
+ADD files/service /usr/sbin/service
+RUN chmod +x /usr/sbin/service
 
 RUN apt-get update
 RUN apt-get install -y wget
@@ -23,6 +24,7 @@ RUN apt-get install -y salt-minion reclass git
 RUN apt-get install -y salt-formula-*
 ADD files/minion.conf /etc/salt/minion
 RUN test -d /etc/salt/minion.d || mkdir /etc/salt/minion.d
+RUN echo "noservices: True" > /etc/salt/grains
 
 ## Reclass
 RUN test -d /etc/reclass || mkdir /etc/reclass
