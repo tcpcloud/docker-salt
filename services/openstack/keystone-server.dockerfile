@@ -4,11 +4,6 @@ FROM tcpcloud/salt-base
 ENV SERVICE keystone
 ENV ROLE server
 
-### XXX
-RUN rm -rf /usr/share/salt-formulas/env/keystone
-RUN git clone https://github.com/fpytloun/salt-formula-keystone.git -b docker keystone; mv keystone/keystone /usr/share/salt-formulas/env/
-### XXX
-
 ## Pillar
 RUN mkdir -m700 /srv/salt/pillar
 RUN echo "base:\n  ${SERVICE}-${ROLE}:\n    - ${SERVICE}-${ROLE}" > /srv/salt/pillar/top.sls

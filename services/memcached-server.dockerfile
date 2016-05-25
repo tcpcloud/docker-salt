@@ -13,11 +13,6 @@ RUN rm -rf /srv/reclass /etc/reclass
 ADD files/minion-pillar.conf /etc/salt/minion
 RUN echo "id: ${SERVICE}-${ROLE}" >> /etc/salt/minion
 
-### XXX
-RUN rm -rf /usr/share/salt-formulas/env/memcached
-RUN git clone https://github.com/tcpcloud/salt-formula-memcached.git -b docker memcached; mv memcached/memcached /usr/share/salt-formulas/env/
-### XXX
-
 ## Application
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_top | grep -- '- linux' 2>&1 >/dev/null && \
     salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.sls linux || true
