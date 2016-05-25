@@ -1,8 +1,13 @@
 FROM tcpcloud/salt-base
 
 ## Overridable parameters
-ENV SERVICE rabbitmq
+ENV SERVICE keystone
 ENV ROLE server
+
+### XXX
+RUN rm -rf /usr/share/salt-formulas/env/keystone
+RUN git clone https://github.com/fpytloun/salt-formula-keystone.git -b docker keystone; mv keystone/keystone /usr/share/salt-formulas/env/
+### XXX
 
 ## Pillar
 RUN mkdir -m700 /srv/salt/pillar
@@ -19,7 +24,7 @@ RUN salt-call --local --retcode-passthrough state.show_top | grep -- '- linux' 2
 RUN salt-call --local --retcode-passthrough state.highstate
 
 ENTRYPOINT /entrypoint.sh
-EXPOSE 5672 15672
+EXPOSE 5000 35357
 
 ## Cleanup
 RUN rm -f /etc/salt/grains

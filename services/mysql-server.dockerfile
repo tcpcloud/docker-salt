@@ -5,7 +5,7 @@ ENV SERVICE mysql
 ENV ROLE server
 
 ## Pillar
-RUN mkdir /srv/salt/pillar
+RUN mkdir -m700 /srv/salt/pillar
 RUN echo "base:\n  ${SERVICE}-${ROLE}:\n    - ${SERVICE}-${ROLE}" > /srv/salt/pillar/top.sls
 RUN reclass-salt --pillar ${SERVICE}-${ROLE} > /srv/salt/pillar/${SERVICE}-${ROLE}.sls
 
@@ -19,6 +19,7 @@ RUN salt-call --local --retcode-passthrough state.show_top | grep -- '- linux' 2
 RUN salt-call --local --retcode-passthrough state.highstate
 
 ENTRYPOINT /entrypoint.sh
+EXPOSE 3306
 
 ## Cleanup
 RUN rm -f /etc/salt/grains
