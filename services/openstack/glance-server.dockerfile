@@ -23,7 +23,7 @@ RUN salt-call --local --retcode-passthrough state.show_top | grep -- '- linux' 2
     salt-call --local --retcode-passthrough state.sls linux || true
 RUN salt-call --local --retcode-passthrough state.highstate
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 EXPOSE 9292 9191
 
 ## Cleanup
