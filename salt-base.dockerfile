@@ -35,3 +35,8 @@ RUN ln -s /usr/share/salt-formulas/reclass/service /srv/salt/reclass/classes/ser
 
 # Workaround for master-less Salt with reclass
 RUN reclass-salt --top > /usr/share/salt-formulas/env/top.sls
+
+# Cleanup
+RUN apt-get autoremove --purge -y
+RUN apt-get clean
+RUN rm -rf /etc/salt/grains /etc/salt/grains.d/* /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*

@@ -21,8 +21,11 @@ RUN salt-call --local --retcode-passthrough state.highstate
 ENTRYPOINT /entrypoint.sh
 EXPOSE 5672 15672
 
-## Cleanup
-RUN rm -f /etc/salt/grains
+# Cleanup
 RUN apt-get autoremove --purge -y
 RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*
+RUN rm -rf /etc/salt/grains /etc/salt/grains.d/* /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*
+# Dirty hack to avoid running apt-get update during entrypoint's Salt run
+RUN mv /usr/bin/apt-get /usr/bin/apt-get.orig && \
+    echo "#!/bin/sh\nexit 0" > /usr/bin/apt-get && \
+    chmod +x /usr/bin/apt-get
