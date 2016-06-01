@@ -31,6 +31,7 @@ find $BUILD_PATH -name "*.dockerfile" | while read service; do
 done
 
 wait
+echo
 
 for log_file in log/*.log; do
     grep "Successfully built " $log_file >/dev/null || (
