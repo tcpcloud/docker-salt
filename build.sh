@@ -14,7 +14,7 @@ RETVAL=0
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
     echo "== Building $name"
-    docker build --no-cache -t $BUILD_ARGS $TAG_PREFIX/$name -f $1 . 2>&1 | tee log/${name}.log
+    docker build --no-cache --rm=true -t $BUILD_ARGS $TAG_PREFIX/$name -f $1 . 2>&1 | tee log/${name}.log
 }
 
 [ ! -d log ] && mkdir log || rm -f log/*.log
