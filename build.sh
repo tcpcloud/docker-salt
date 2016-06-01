@@ -19,17 +19,20 @@ build_image() {
 
 [ ! -d log ] && mkdir log || rm -f log/*.log
 
+build_image salt-base.dockerfile
+
 find $BUILD_PATH -name "*.dockerfile" | while read service; do
     if [ "$service" == "salt-base.dockerfile" ]; then
-        build_image $service
-    else
-        if [ $JOBS -ge $MAX_JOBS ]; then
-            wait
-            JOBS=0
-        fi
-        build_image $service &
-        JOBS=$[ $JOBS + 1 ]
+        continue
     fi
+
+    if [ $JOBS -ge $MAX_JOBS ]; then
+        wait
+        JOBS=0
+    fi
+
+    build_image $service &
+    JOBS=$[ $JOBS + 1 ]
 done
 
 sleep 10
