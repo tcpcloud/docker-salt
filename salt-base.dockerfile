@@ -39,4 +39,4 @@ RUN reclass-salt --top > /usr/share/salt-formulas/env/top.sls
 # Cleanup
 RUN apt-get autoremove --purge -y
 RUN apt-get clean
-RUN rm -rf /etc/salt/grains /etc/salt/grains.d/* /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*
