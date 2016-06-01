@@ -40,7 +40,7 @@ wait
 echo
 
 for log_file in log/*.log; do
-    if [ ! -z $(grep "Successfully built " $log_file 2>/dev/null) ]; then
+    if [ ! -z "$(grep "Successfully built " $log_file 2>/dev/null)" ]; then
         echo "== Build of $(basename $log_file .log) failed" 1>&2
         RETVAL=1
     fi
