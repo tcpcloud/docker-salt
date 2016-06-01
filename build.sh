@@ -37,10 +37,10 @@ wait
 echo
 
 for log_file in log/*.log; do
-    grep "Successfully built " $log_file >/dev/null || (
-        echo "== Build of $(basename $log_file .log) failed" 1>&2;
+    if [ $(grep "Successfully built " $log_file) ]; then
+        echo "== Build of $(basename $log_file .log) failed" 1>&2
         RETVAL=1
-    )
+    fi
 done
 
 exit $RETVAL
