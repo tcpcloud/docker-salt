@@ -4,11 +4,6 @@ FROM tcpcloud/salt-base
 ENV SERVICE glance
 ENV ROLE server
 
-### XXX
-RUN rm -rf /usr/share/salt-formulas/env/glance
-RUN git clone https://github.com/pupapaik/salt-formula-glance.git glance; mv glance/glance /usr/share/salt-formulas/env/
-### XXX
-
 ## Pillar
 RUN mkdir -m700 /srv/salt/pillar
 RUN echo "base:\n  ${SERVICE}-${ROLE}:\n    - ${SERVICE}-${ROLE}" > /srv/salt/pillar/top.sls

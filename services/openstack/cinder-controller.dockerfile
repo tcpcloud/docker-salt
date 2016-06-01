@@ -4,11 +4,6 @@ FROM tcpcloud/salt-base
 ENV SERVICE cinder
 ENV ROLE controller
 
-### XXX
-RUN rm -rf /usr/share/salt-formulas/env/cinder
-RUN git clone https://github.com/pupapaik/salt-formula-cinder.git cinder; mv cinder/cinder /usr/share/salt-formulas/env/
-### XXX
-
 ## Pillar
 RUN mkdir -m700 /srv/salt/pillar
 RUN echo "base:\n  ${SERVICE}-${ROLE}:\n    - ${SERVICE}-${ROLE}" > /srv/salt/pillar/top.sls
