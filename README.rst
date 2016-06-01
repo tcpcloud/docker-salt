@@ -10,6 +10,21 @@ Quickstart
 
 Install docker, run ``./build.sh`` and see what will happen :-)
 
+Docker Compose
+================
+
+It uses host networking, so there must be replaced default ip address by local ip address on the machine.
+
+.. code-block:: bash
+
+    sed -i 's,172.16.1.122,<your ip address>,g' compose/common.env
+
+Then start compose-core.yml, after at least 30 seconds compose-openstack.yml and finally compose-opencontrail.yml
+
+.. code-block:: bash
+
+    docker-compose -f compose-openstack.yml up -d
+
 Images
 ======
 

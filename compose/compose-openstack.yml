@@ -1,0 +1,77 @@
+openstack-keystone:
+  image: tcpcloud/keystone-server
+  net: host
+  env_file: ./common.env
+
+openstack-glance-api:
+  image: tcpcloud/glance-server
+  net: host
+  command: api
+  env_file: ./common.env
+
+openstack-glance-registry:
+  image: tcpcloud/glance-server
+  net: host
+  command: registry
+  env_file: ./common.env
+
+openstack-cinder-api:
+  image: tcpcloud/cinder-controller
+  net: host
+  command: api
+  env_file: ./common.env
+
+openstack-cinder-scheduler:
+  image: tcpcloud/cinder-controller
+  net: host
+  command: scheduler
+  env_file: ./common.env
+
+openstack-nova-api:
+  image: tcpcloud/nova-controller
+  net: host
+  command: api
+  privileged: true
+  env_file: ./common.env
+
+openstack-nova-scheduler:
+  image: tcpcloud/nova-controller
+  net: host
+  command: scheduler
+  env_file: ./common.env
+
+openstack-nova-conductor:
+  image: tcpcloud/nova-controller
+  net: host
+  command: conductor
+  env_file: ./common.env
+
+openstack-nova-cert:
+  image: tcpcloud/nova-controller
+  net: host
+  command: cert
+  env_file: ./common.env
+
+openstack-nova-consoleauth:
+  image: tcpcloud/nova-controller
+  net: host
+  command: consoleauth
+  env_file: ./common.env
+
+openstack-nova-novncproxy:
+  image: tcpcloud/nova-controller
+  net: host
+  command: novncproxy
+  env_file: ./common.env
+
+openstack-neutron-server:
+  image: tcpcloud/neutron-server
+  net: host
+  command: server
+  env_file: ./common.env
+
+opencontrail-database:
+  image: tcpcloud/opencontrail-database
+  privileged: true
+  net: host
+  env_file: ./common.env

@@ -1,0 +1,17 @@
+opencontrail-config:
+  image: tcpcloud/opencontrail-config
+  net: host
+  privileged: true
+  env_file: ./common.env
+
+opencontrail-collector:
+  image: tcpcloud/opencontrail-collector
+  net: host
+  privileged: true
+  env_file: ./common.env
+
+opencontrail-control:
+  image: tcpcloud/opencontrail-control
+  net: host
+  privileged: true
+  env_file: ./common.env

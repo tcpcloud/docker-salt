@@ -1,0 +1,28 @@
+openstack-mysql:
+  image: tcpcloud/mysql-server
+  net: host
+  env_file: ./common.env
+
+openstack-memcached01:
+  image: tcpcloud/memcached-server
+  net: host
+  env_file: ./common.env
+
+#openstack-memcached02:
+#  image: tcpcloud/memcached-server
+#  net: host
+#  env_file: ./common.env
+#  ports:
+#      - "11212:11211"
+
+#openstack-memcached03:
+#  image: tcpcloud/memcached-server
+#  net: host
+#  env_file: ./common.env
+#  ports:
+#      - "11213:11211"
+
+rabbitmq-server:
+  image: tcpcloud/rabbitmq-server
+  net: host
+  env_file: ./common.env
