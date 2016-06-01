@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+[ -z $DEBUG ] || set -x
+
 TAG_PREFIX=tcpcloud
 BUILD_PATH=${*:-"salt-base.dockerfile services"}
 SLEEP_TIME=${SLEEP_TIME:-3}
@@ -30,6 +32,7 @@ find $BUILD_PATH -name "*.dockerfile" | while read service; do
     fi
 done
 
+sleep 10
 wait
 echo
 
