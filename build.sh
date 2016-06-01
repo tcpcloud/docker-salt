@@ -2,6 +2,10 @@
 
 TAG_PREFIX=tcpcloud
 BUILD_PATH=${1:-"salt-base.dockerfile services"}
+SLEEP_TIME=${SLEEP_TIME:-3}
+MAX_JOBS=${JOBS:-1}
+
+JOBS=0
 
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
@@ -10,5 +14,14 @@ build_image() {
 }
 
 find $BUILD_PATH -name "*.dockerfile" | while read service; do
-    build_image $service
+    if [ "$service" == "salt-base.dockerfile" ]; then
+        build_image $service
+    else
+        if [ $JOBS -ge $MAX_JOBS ]; then
+            wait
+            JOBS=0
+        fi
+        build_image $service &
+        JOBS=$[ $JOBS + 1 ]
+    fi
 done
