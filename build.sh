@@ -19,11 +19,8 @@ build_image() {
 
 wait_jobs() {
     echo "== Waiting for jobs: ${JOBS[@]}"
-    i=0
     for job in ${JOBS[@]}; do
         wait $job
-        JOBS[$i]=''
-        i+=1
     done
     JOBS=()
 }
