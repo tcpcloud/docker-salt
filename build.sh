@@ -14,7 +14,7 @@ RETVAL=0
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
     echo "== Building $name"
-    stdbuf -oL -eL docker build --no-cache --rm=true -t $TAG_PREFIX/$name $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
+    stdbuf -oL -eL docker build --no-cache -t $TAG_PREFIX/$name $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
 }
 
 wait_jobs() {
@@ -28,10 +28,12 @@ wait_jobs() {
 }
 
 cleanup() {
+    set +e
     echo "== Cleaning up jobs: ${JOBS[@]}"
     for job in ${JOBS[@]}; do
         kill $job
     done
+    exit $RETVAL
 }
 
 trap cleanup EXIT
