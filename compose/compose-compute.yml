@@ -1,0 +1,8 @@
+opencontrail-compute:
+  image: tcpcloud/opencontrail-compute
+  net: host
+  privileged: true
+  volumes:
+    - /lib/modules:/lib/modules
+  env_file: ./common.env
+

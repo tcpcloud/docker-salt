@@ -3,7 +3,7 @@
 [[ "$DEBUG" =~ ^(True|true|1|yes)$ ]] && set -x
 
 TAG_PREFIX=tcpcloud
-BUILD_PATH=${*:-"salt-base.dockerfile services"}
+BUILD_PATH=${*:-"salt-base.dockerfile opencontrail-compute.dockerfile"}
 SLEEP_TIME=${SLEEP_TIME:-3}
 BUILD_ARGS=${BUILD_ARGS:-""}
 MAX_JOBS=${JOBS:-1}
