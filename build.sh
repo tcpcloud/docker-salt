@@ -25,6 +25,7 @@ wait_jobs() {
         JOBS[$i]=''
         i+=1
     done
+    JOBS=()
 }
 
 cleanup() {
