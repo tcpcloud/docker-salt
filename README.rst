@@ -25,6 +25,8 @@ Then start compose-core.yml, after at least 30 seconds compose-openstack.yml and
 
     docker-compose -f compose-openstack.yml up -d
 
+If you have issues with mysql, set ``SET GLOBAL max_connect_errors=100000;`` in mysql.
+
 Images
 ======
 
