@@ -18,7 +18,7 @@ RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.show_t
     salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.sls linux || true
 RUN salt-call --id=${SERVICE}-${ROLE} --local --retcode-passthrough state.highstate
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 EXPOSE 11211
 
 # Cleanup

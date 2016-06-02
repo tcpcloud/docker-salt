@@ -27,7 +27,7 @@ autorestart = true\n\
 stopasgroup=true'\
   > /etc/contrail/supervisord_analytics_files/redis.ini
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 EXPOSE 8082 8081
 
 # Cleanup
