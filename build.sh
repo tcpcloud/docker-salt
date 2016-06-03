@@ -2,9 +2,9 @@
 
 [[ "$DEBUG" =~ ^(True|true|1|yes)$ ]] && set -x
 
-TAG_PREFIX=tcpcloud
+TAG_PREFIX=${TAG_PREFIX:-tcpcloud}
+TAG_VERSION=${TAG_VERSION:-latest}
 BUILD_PATH=${*:-"salt-base.dockerfile services"}
-SLEEP_TIME=${SLEEP_TIME:-3}
 BUILD_ARGS=${BUILD_ARGS:-""}
 MAX_JOBS=${JOBS:-1}
 
@@ -14,7 +14,7 @@ RETVAL=0
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
     echo "== Building $name"
-    stdbuf -oL -eL docker build --no-cache -t $TAG_PREFIX/$name $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
+    stdbuf -oL -eL docker build --no-cache -t ${TAG_PREFIX}/${name}:${TAG_VERSION} $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
 }
 
 wait_jobs() {

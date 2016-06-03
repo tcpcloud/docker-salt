@@ -1,9 +1,14 @@
 FROM ubuntu:trusty
 
-## Overridable parameters
-ENV RECLASS_URL https://github.com/tcpcloud/workshop-salt-model.git
-ENV RECLASS_BRANCH docker
-ENV REPO_URL "http://apt.tcpcloud.eu/nightly/"
+## Build parameters
+ARG reclass_url=https://github.com/tcpcloud/workshop-salt-model.git
+ARG reclass_branch=master
+ARG repo_branch=nightly
+
+## Customizable parameters
+ENV RECLASS_URL $reclass_url
+ENV RECLASS_BRANCH $reclass_branch
+ENV REPO_URL "http://apt.tcpcloud.eu/$repo_branch/"
 ENV REPO_COMPONENTS "main security extra tcp tcp-salt"
 
 ## Common
