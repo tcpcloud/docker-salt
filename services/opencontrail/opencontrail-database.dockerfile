@@ -27,7 +27,7 @@ autorestart = true\n\
 stopasgroup=true'\
   > /etc/contrail/supervisord_database_files/zookeeper.ini
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT /entrypoint.sh
 EXPOSE 9160 2181
 
 # Cleanup
