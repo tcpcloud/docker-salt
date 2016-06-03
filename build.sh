@@ -6,6 +6,7 @@ TAG_PREFIX=${TAG_PREFIX:-tcpcloud}
 TAG_VERSION=${TAG_VERSION:-latest}
 BUILD_PATH=${*:-"salt-base.dockerfile services"}
 BUILD_ARGS=${BUILD_ARGS:-""}
+BUILD_ARGS_SALT_BASE=${BUILD_ARGS_SALT_BASE:-""}
 MAX_JOBS=${JOBS:-1}
 
 JOBS=()
@@ -38,7 +39,7 @@ trap cleanup EXIT
 
 [ ! -d log ] && mkdir log || rm -f log/*.log
 
-build_image salt-base.dockerfile
+BUILD_ARGS="${BUILD_ARGS} ${BUILD_ARGS_SALT_BASE}" build_image salt-base.dockerfile
 
 DOCKERFILES=$(find $BUILD_PATH -name "*.dockerfile")
 for service in ${DOCKERFILES[@]}; do
