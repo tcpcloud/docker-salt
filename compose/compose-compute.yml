@@ -7,3 +7,10 @@ libvirt:
     - /var/lib/libvirt/:/var/lib/libvirt
     - /sys/fs/cgroup:/sys/fs/cgroup:rw
   net: host
+nova-compute:
+  image: tcpcloud/nova-compute
+  privileged: true
+  volumes:
+    - /var/lib/nova/instances:/var/lib/nova/instances
+  net: host
+  env_file: ./common.env
