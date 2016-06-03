@@ -1,0 +1,9 @@
+libvirt:
+  image: tcpcloud/libvirt-compute
+  privileged: true
+  volumes:
+    - /var/lib/nova/instances:/var/lib/nova/instances
+    - /lib/modules:/lib/modules
+    - /var/lib/libvirt/:/var/lib/libvirt
+    - /sys/fs/cgroup:/sys/fs/cgroup:rw
+  net: host
