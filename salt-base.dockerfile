@@ -17,16 +17,16 @@ ADD files/service /usr/sbin/service
 RUN chmod +x /usr/sbin/service
 
 RUN apt-get update
-RUN apt-get install -y wget
+RUN apt-get install --no-install-recommends -y wget
 
 RUN echo "deb [arch=amd64] ${REPO_URL} trusty ${REPO_COMPONENTS}" > /etc/apt/sources.list
 RUN wget -O - http://apt.tcpcloud.eu/public.gpg | apt-key add -
 RUN apt-get update
 
-RUN apt-get install -y salt-minion reclass git
+RUN apt-get install --no-install-recommends -y salt-minion reclass git
 
 ## Salt
-RUN apt-get install -y salt-formula-*
+RUN apt-get install --no-install-recommends -y salt-formula-*
 ADD files/minion.conf /etc/salt/minion
 RUN test -d /etc/salt/minion.d || mkdir /etc/salt/minion.d
 RUN echo "noservices: True" > /etc/salt/grains
