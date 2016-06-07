@@ -42,7 +42,7 @@ trap cleanup EXIT
 
 BUILD_ARGS="${BUILD_ARGS} ${BUILD_ARGS_SALT_BASE}" build_image salt-base.dockerfile
 
-DOCKERFILES=$(find $BUILD_PATH -name "*.dockerfile")
+DOCKERFILES=$(find $BUILD_PATH -name "*.dockerfile" | grep -v salt-base.dockerfile)
 for service in ${DOCKERFILES[@]}; do
     if [[ $service =~ *salt-base* ]]; then
         continue
