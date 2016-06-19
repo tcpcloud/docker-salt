@@ -112,3 +112,8 @@ simply generated using Jinja on salt run during image creation.
 
 In that case, Salt with it's formulas and Reclass is purged at the end of
 image build.
+
+Building pipeline
+-----------------
+
+.. image:: pipeline.png 
