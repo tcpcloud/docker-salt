@@ -15,7 +15,7 @@ RETVAL=0
 build_image() {
     name=$(echo $(basename $1 .dockerfile) | sed 's,\.,-,g')
     echo "== Building $name"
-    stdbuf -oL -eL docker build --no-cache -t ${TAG_PREFIX}/${name}:${TAG_VERSION} $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
+    stdbuf -oL -eL docker build -t ${TAG_PREFIX}/${name}:${TAG_VERSION} $BUILD_ARGS -f $1 . 2>&1 | stdbuf -oL -eL tee log/${name}.log
     docker tag ${TAG_PREFIX}/${name}:${TAG_VERSION} ${TAG_PREFIX}/${name}:latest
 }
 
