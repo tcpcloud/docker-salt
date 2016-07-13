@@ -33,7 +33,7 @@ RUN test -d /etc/salt/minion.d || mkdir /etc/salt/minion.d
 RUN echo "noservices: True" > /etc/salt/grains
 
 ## Reclass
-RUN test -n "$reclass_key" && (mkdir /root/.ssh; echo "$reclass_key" > /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa)
+RUN test -n "$reclass_key" && (mkdir /root/.ssh; echo "$reclass_key"|base64 -d > /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa)
 RUN test -d /etc/reclass || mkdir /etc/reclass
 ADD files/reclass-config.yml /etc/reclass/reclass-config.yml
 
