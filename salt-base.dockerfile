@@ -3,6 +3,7 @@ FROM ubuntu:trusty
 ## Build parameters
 ARG reclass_url=https://github.com/tcpcloud/workshop-salt-model.git
 ARG reclass_branch=master
+ARG reclass_key
 ARG repo_branch=nightly
 
 ## Customizable parameters
@@ -32,6 +33,7 @@ RUN test -d /etc/salt/minion.d || mkdir /etc/salt/minion.d
 RUN echo "noservices: True" > /etc/salt/grains
 
 ## Reclass
+RUN test -n "$reclass_key" && (mkdir /root/.ssh; echo "$reclass_key" > /root/.ssh/id_rsa; chmod 600 /root/.ssh/id_rsa)
 RUN test -d /etc/reclass || mkdir /etc/reclass
 ADD files/reclass-config.yml /etc/reclass/reclass-config.yml
 
@@ -44,4 +46,4 @@ RUN reclass-salt --top > /usr/share/salt-formulas/env/top.sls
 # Cleanup
 RUN apt-get autoremove --purge -y
 RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/*
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/salt/* /root/.ssh
