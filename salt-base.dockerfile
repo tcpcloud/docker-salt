@@ -33,12 +33,11 @@ RUN test -d /etc/salt/minion.d || mkdir /etc/salt/minion.d
 RUN echo "noservices: True" > /etc/salt/grains
 
 ## Reclass
-RUN test -n "${reclass_key}" && \
-    (mkdir /root/.ssh; \
-     echo -ne $(echo -ne ${reclass_key})|base64 -d > /root/.ssh/id_rsa; \
-     chmod 600 /root/.ssh/id_rsa; \
+ADD files/id_rsa /root/.ssh/id_rsa
+RUN test -s /root/.ssh/id_rsa && \
+    (chmod 600 /root/.ssh/id_rsa; \
      host=`echo "${RECLASS_URL}"|grep -Eo 'git@[a-z0-9\-\.]+:'|cut -d : -f 1|cut -d '@' -f 2`; \
-     [ -n $host ] && ssh-keyscan $host >>/root/.ssh/known_hosts) || true
+     [ -n $host ] && ssh-keyscan $host >>/root/.ssh/known_hosts) || rm -rf /root/.ssh
 RUN test -d /etc/reclass || mkdir /etc/reclass
 ADD files/reclass-config.yml /etc/reclass/reclass-config.yml
 

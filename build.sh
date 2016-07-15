@@ -40,6 +40,7 @@ trap cleanup EXIT
 
 [ ! -d log ] && mkdir log || rm -f log/*.log
 
+[ ! -f files/id_rsa ] && touch files/id_rsa
 BUILD_ARGS="${BUILD_ARGS} ${BUILD_ARGS_SALT_BASE}" build_image salt-base.dockerfile
 
 DOCKERFILES=$(find $BUILD_PATH -name "*.dockerfile" | grep -v salt-base.dockerfile)
